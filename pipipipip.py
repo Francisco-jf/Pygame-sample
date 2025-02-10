@@ -34,7 +34,7 @@ reloj = pygame.time.Clock()
 volumen = 0.5  # Volumen inicial (rango 0.0 a 1.0)
 
 # Cargar música y reproducirla
-pygame.mixer.music.load(".venv/Scripts/audio/badd.mp3")  # Asegúrate de colocar el archivo MP3 en la ruta correcta
+pygame.mixer.music.load("Song1.mp3")  # Asegúrate de colocar el archivo MP3 en la ruta correcta
 pygame.mixer.music.set_volume(volumen)
 pygame.mixer.music.play(-1, 0.0)  # Reproduce música en bucle
 

@@ -5,7 +5,7 @@ pygame.mixer.init()
 
 # Configuración de la pantalla
 alto, ancho = 800, 800
-screen = pygame.display.set_mode((alto, ancho))
+screen = pygame.display.set_mode((ancho, alto))
 pygame.display.set_caption("Muevelo BB")
 
 # Colores
@@ -114,7 +114,6 @@ while jugando:
     # Actualizar la pantalla
     pygame.display.flip()
     clock.tick(60)
-    #verificar cancion
 
 # Salir del juego
 pygame.quit()
