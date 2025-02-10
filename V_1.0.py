@@ -22,12 +22,12 @@ alto = 800
 
 # Configuración de screen
 screen = pygame.display.set_mode((ancho, alto))
-pygame.display.set_caption("Juego con Login y Menú")
+pygame.display.set_caption('Juego con Login y Menú')
 
 # Fuente
-fuente = pygame.font.SysFont("Arial", 30)
-fuente_grande = pygame.font.SysFont("Arial", 50)
-fuente_extra_grande = pygame.font.SysFont("Arial", 70)
+fuente = pygame.font.SysFont('Arial', 30)
+fuente_grande = pygame.font.SysFont('Arial', 50)
+fuente_extra_grande = pygame.font.SysFont('Arial', 70)
 
 # clock para controlar los FPS
 clock = pygame.time.Clock()
@@ -36,9 +36,9 @@ clock = pygame.time.Clock()
 volumen = 0.3
 
 # Cargar música y reproducirla
-songs = ["Song1.mp3", "Song2.mp3"]
+songs = ['Song1.mp3', 'Song2.mp3']
 song_ind = 0
-pygame.mixer.music.load("Song1.mp3")
+pygame.mixer.music.load('Song1.mp3')
 pygame.mixer.music.set_volume(volumen)
 pygame.mixer.music.play(-1, 0.0)
 # Funciónes para cambiar de cancion
@@ -63,10 +63,13 @@ mult = 1
 multm = 0
 keys = [pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN, pygame.K_RIGHT]
 key_positions = [100, 200, 300, 400]
+p_icombo = (585, 187) 
 # Cargar imágenes personalizadas
-image_paths = ["f1.png", "f2.png", "f3.png", "f4.png"]
+image_paths = ['f1.png', 'f2.png', 'f3.png', 'f4.png']
+img_combos = ['c1.png', 'c2.png', 'c3.png']
 # lista con localizacion de imagenes
 images = [pygame.image.load(path) for path in image_paths]
+x_combos = [pygame.image.load(path) for path in img_combos]
 #recursos
 #sonidos
 sonido1= pygame.mixer.Sound('fail3.ogg')
@@ -110,12 +113,12 @@ def dibujar_boton_3d(texto, x, y, ancho, alto, color_base, color_hover, color_cl
 def menu_principal():
     while True:
         screen.blit(fondo1, [0, 0])
-        dibujar_texto_con_sombra("Menú Principal", fuente_extra_grande, WHITE, BLACK, 250, 100)
+        dibujar_texto_con_sombra('Menú Principal', fuente_extra_grande, WHITE, BLACK, 250, 100)
 
         # Botones: Iniciar Juego, Opciones, Salir
-        boton_jugar = dibujar_boton_3d("Iniciar Juego", 300, 200, 200, 50, amarillo, gris_claro, WHITE)
-        boton_opciones = dibujar_boton_3d("Opciones", 300, 270, 200, 50, amarillo, gris_claro, WHITE)
-        boton_salir = dibujar_boton_3d("Salir", 300, 340, 200, 50, amarillo, gris_claro, WHITE)
+        boton_jugar = dibujar_boton_3d('Iniciar Juego', 300, 200, 200, 50, amarillo, gris_claro, WHITE)
+        boton_opciones = dibujar_boton_3d('Opciones', 300, 270, 200, 50, amarillo, gris_claro, WHITE)
+        boton_salir = dibujar_boton_3d('Salir', 300, 340, 200, 50, amarillo, gris_claro, WHITE)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -123,9 +126,9 @@ def menu_principal():
                 sys.exit()
             if evento.type == pygame.MOUSEBUTTONDOWN:
                 if boton_jugar.collidepoint(evento.pos):
-                    return "juego"
+                    return 'juego'
                 elif boton_opciones.collidepoint(evento.pos):
-                    return "opciones"
+                    return 'opciones'
                 elif boton_salir.collidepoint(evento.pos):
                     pygame.quit()
                     sys.exit()
@@ -133,7 +136,7 @@ def menu_principal():
             # Verificar si la tecla Esc fue presionada
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_ESCAPE:
-                    return "menu_principal"  # Regresa al menú principal
+                    return 'menu_principal'  # Regresa al menú principal
 
         pygame.display.flip()
         clock.tick(60)
@@ -144,15 +147,15 @@ def opciones():
     while True:
         screen.blit(fondo3, [0, 0])
 
-        dibujar_texto_con_sombra("Ajuste de Volumen", fuente_extra_grande, WHITE, BLACK, 100, 90)
+        dibujar_texto_con_sombra('Ajuste de Volumen', fuente_extra_grande, WHITE, BLACK, 100, 90)
 
         # Botones de volumen
-        boton_volumen_up = dibujar_boton_3d("Subir Volumen", 300, 200, 200, 50, amarillo, gris_claro, WHITE)
-        boton_volumen_down = dibujar_boton_3d("Bajar Volumen", 300, 270, 200, 50, amarillo, gris_claro, WHITE)
-        boton_volver = dibujar_boton_3d("Volver al Menú", 300, 340, 200, 50, amarillo, gris_claro, WHITE)
+        boton_volumen_up = dibujar_boton_3d('Subir Volumen', 300, 200, 200, 50, amarillo, gris_claro, WHITE)
+        boton_volumen_down = dibujar_boton_3d('Bajar Volumen', 300, 270, 200, 50, amarillo, gris_claro, WHITE)
+        boton_volver = dibujar_boton_3d('Volver al Menú', 300, 340, 200, 50, amarillo, gris_claro, WHITE)
 
         # Texto de volumen alineado
-        dibujar_texto_con_sombra(f"Volumen: {int(volumen * 100)}%", fuente, WHITE, BLACK, 310, 160)
+        dibujar_texto_con_sombra(f'Volumen: {int(volumen * 100)}%', fuente, WHITE, BLACK, 310, 160)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -168,12 +171,12 @@ def opciones():
                         volumen -= 0.1
                         pygame.mixer.music.set_volume(volumen)
                 elif boton_volver.collidepoint(evento.pos):
-                    return "menu_principal"  # Regresar al menú principal
+                    return 'menu_principal'  # Regresar al menú principal
 
             # Verificar si la tecla Esc fue presionada
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_ESCAPE:
-                    return "menu_principal"  # Regresa al menú principal
+                    return 'menu_principal'  # Regresa al menú principal
 
         pygame.display.flip()
         clock.tick(60)
@@ -181,8 +184,8 @@ def pantalla_final():
     end= True
     while True:
         screen.blit(fondo3, [0, 0])
-        f_score_text = font.render(f"Puntaje final: {pts}", True, WHITE)
-        combo_text = font.render(f"Combo Maximo: x{multm}", True, WHITE)
+        f_score_text = font.render(f'Puntaje final: {pts}', True, WHITE)
+        combo_text = font.render(f'Combo Maximo: x{multm}', True, WHITE)
         screen.blit(f_score_text, (ancho // 2, alto // 2-100))
         screen.blit(combo_text, (ancho // 2, alto // 2))
         pygame.display.flip()
@@ -210,16 +213,26 @@ def dbj_linea():
 
 # Función para mostrar el puntaje
 def dbj_pts():
-    score_text = font.render(f"Puntaje: {pts}", True, WHITE)
-    combo_text = font.render(f"Combo: x{mult}", True, WHITE)
+    score_text = font.render(f'Puntaje: {pts}', True, WHITE)
+    combo_text = font.render(f'Combo: x{mult}', True, WHITE)
     screen.blit(score_text, (600, 550))
     screen.blit(combo_text, (600, 600))
+def img_combo():
+    global mult
+    if(mult<10):
+        c = 0
+    if(mult>9) and (mult<20):
+        c = 1
+    elif (mult==20):
+        c = 2
+
+    screen.blit(x_combos[c], p_icombo)
+    
 def iniciar_juego():
     global pts, mult, multm, combo
     jugando= True
     while jugando:
         screen.blit(fondo, [0, 0])
-        #screen.blit(gif1, [590, 170])
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 anterior_song()
@@ -247,8 +260,8 @@ def iniciar_juego():
                 crear_obj()
         if not pygame.mixer.music.get_busy():
             screen.blit(fondo3, [0, 0])
-            f_score_text = font.render(f"Puntaje final: {pts}", True, WHITE)
-            combo_text = font.render(f"Combo Maximo: x{multm}", True, WHITE)
+            f_score_text = font.render(f'Puntaje final: {pts}', True, WHITE)
+            combo_text = font.render(f'Combo Maximo: x{multm}', True, WHITE)
             screen.blit(f_score_text, (ancho // 2, alto // 2-100))
             screen.blit(combo_text, (ancho // 2, alto // 2))
             pygame.display.flip()
@@ -265,6 +278,7 @@ def iniciar_juego():
                 sonido2.play()
                 
         # Dibujar todo
+        img_combo()
         dbj_obj()
         dbj_linea()
         dbj_pts()
@@ -276,10 +290,10 @@ def iniciar_juego():
 # Función principal
 while True: 
     opcion = menu_principal()
-    if opcion == "juego":
+    if opcion == 'juego':
         siguiente_song()
         iniciar_juego()
-    elif opcion == "opciones":
+    elif opcion == 'opciones':
             opciones()
     # Actualizar la pantalla
     pygame.display.flip()

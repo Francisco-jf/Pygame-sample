@@ -34,7 +34,8 @@ reloj = pygame.time.Clock()
 volumen = 0.5  # Volumen inicial (rango 0.0 a 1.0)
 
 # Cargar música y reproducirla
-pygame.mixer.music.load("Song1.mp3")  # Asegúrate de colocar el archivo MP3 en la ruta correcta
+songs = ["Song1.mp3", "Song2.mp3"]
+current_song_index = 0  
 pygame.mixer.music.set_volume(volumen)
 pygame.mixer.music.play(-1, 0.0)  # Reproduce música en bucle
 
@@ -201,14 +202,12 @@ def main():
         transicion_desvanecimiento_reversa()
         opcion = menu_principal()
         transicion_desvanecimiento_suave()
-        
         if opcion == "juego":
             print("Juego comenzando...")
             # Aquí agregarás la lógica para iniciar el juego.
             # Esto puede incluir la pantalla del juego con más interacción.
             break
         
-        opciones()
 
 if __name__ == "__main__":
     main()
