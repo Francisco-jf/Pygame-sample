@@ -235,14 +235,17 @@ def iniciar_juego():
         screen.blit(fondo, [0, 0])
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                anterior_song()
-                pts = 0
-                mult = 1
-                multm = 0
-                for z in f_obj[:]:
-                    f_obj.remove(z)
-                jugando= False
+                pygame.quit()
+                sys.exit()
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    anterior_song()
+                    pts = 0
+                    mult = 1
+                    multm = 0
+                    for z in f_obj[:]:
+                        f_obj.remove(z)
+                    jugando= False
                 combo = False
                 for obj in f_obj[:]:
                     if abs(obj['pos'][1] - 680) <= 40:
