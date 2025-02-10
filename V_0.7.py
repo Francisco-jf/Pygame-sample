@@ -1,4 +1,4 @@
-import pygame,sys, random, time
+import pygame, sys, random, time
 
 # Inicializar Pygame
 pygame.init()
@@ -33,12 +33,27 @@ fuente_extra_grande = pygame.font.SysFont("Arial", 70)
 clock = pygame.time.Clock()
 
 # Variables para controlar el volumen
-volumen = 0.5  # Volumen inicial (rango 0.0 a 1.0)
+volumen = 0.3
 
 # Cargar música y reproducirla
+songs = ["Song1.mp3", "Song2.mp3"]  # Reemplaza con tus rutas de canciones
+song_ind = 0
 pygame.mixer.music.load("Song1.mp3")
 pygame.mixer.music.set_volume(volumen)
 pygame.mixer.music.play(-1, 0.0)
+# Funciónes para cambiar de cancion
+def siguiente_song():
+    global song_ind
+    song_ind += 1
+    pygame.mixer.music.load(songs[song_ind])
+    pygame.mixer.music.play()
+def anterior_song():
+    global song_ind
+    if (song_ind > 0):
+        song_ind -= 1
+        pygame.mixer.music.load(songs[song_ind])
+        pygame.mixer.music.play()
+
 
 # Variables del juego
 f_obj = []
@@ -55,10 +70,6 @@ images = [pygame.image.load(path) for path in image_paths]
 #sonidos
 sonido1= pygame.mixer.Sound('fail3.ogg')
 sonido2= pygame.mixer.Sound('fail2.mp3')
-#musica
-pygame.mixer.music.load('Song1.mp3')
-pygame.mixer.music.set_volume(0.3)
-pygame.mixer.music.play()
 #imagenes
 fondo= pygame.image.load('Fondo.jpg').convert()
 # Función para dibujar texto con sombra difusa y borde 3D
@@ -241,7 +252,7 @@ def dbj_pts():
     screen.blit(score_text, (600, 550))
     screen.blit(combo_text, (600, 600))
 
-# Función principal (para comenzar el juego)
+# Función principal
 while True:
     transicion_desvanecimiento_suave()
     screen_login()
@@ -249,12 +260,14 @@ while True:
     opcion = menu_principal()
     transicion_desvanecimiento_suave()
     if opcion == "juego":
+        siguiente_song()
         jugando= True
         while jugando:
             screen.blit(fondo, [0, 0])
             #screen.blit(gif1, [590, 170])
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    anterior_song()
                     jugando= False
                 if event.type == pygame.KEYDOWN:
                     combo = False
@@ -292,10 +305,7 @@ while True:
             pygame.display.flip()
             clock.tick(60)
 
-    if not jugando:
-        sys.exit
     # Actualizar la pantalla
     pygame.display.flip()
     clock.tick(60)
-#if __name__ == "__main__":
-    #main()
+
