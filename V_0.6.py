@@ -84,7 +84,8 @@ while jugando:
                 if abs(obj['pos'][1] - 680) <= 40:
                     if event.key == obj['key']:
                         pts += 1 * mult
-                        mult += 1 
+                        if(mult<20):
+                            mult += 1 
                         f_obj.remove(obj)
                         hit = True
                         combo= True
